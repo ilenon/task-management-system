@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManagementAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Adiicona o context do banco de dados
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllers(); // Adiciona suporte para controllers
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Adiciona suporte ao Swagger
 
