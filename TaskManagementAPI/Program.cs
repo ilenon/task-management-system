@@ -6,17 +6,14 @@ using TaskManagementAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// // Adiicona o context do banco de dados
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<ITaskRepository, TaskRepository>(); // Registra o repositório
-builder.Services.AddScoped<ITaskService, TaskService>(); // Registra o serviço
-
-
 // Add services to the container.
 builder.Services.AddControllers(); // Adiciona suporte para controllers
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Adiciona suporte ao Swagger
+
+// // Adiicona o context do banco de dados
+builder.Services.AddScoped<ITaskRepository, TaskRepository>(); // Registra o repositório
+builder.Services.AddScoped<ITaskService, TaskService>(); // Registra o serviço
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -33,7 +30,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 // Mapeia automaticamente os controlladores
 app.MapControllers();
 
