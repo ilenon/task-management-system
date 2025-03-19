@@ -13,7 +13,7 @@ namespace TaskManagementAPI.Repositories.Interfaces
     Task<IEnumerable<TaskModel>> GetAllTasksAsync(); // Retorna todas as tarefas
     Task<TaskModel?> GetTaskByIdAsync(int id); // Retorna uma tarefa pelo ID
     Task<TaskModel> AddTaskAsync(TaskModel task); // Adiciona uma nova tarefa
-    Task<TaskModel?> UpdateTaskAsync(int id, TaskModel task); // Atualiza uma tarefa
+    Task<bool> UpdateTaskAsync(int id, TaskModel task); // Atualiza uma tarefa
     Task<bool> DeleteTaskAsync(int id); // Exclui uma tarefa pelo ID
   }
 }

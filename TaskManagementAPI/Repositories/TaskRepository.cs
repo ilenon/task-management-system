@@ -43,18 +43,18 @@ namespace TaskManagementAPI.Repositories
     }
 
     // `UpdateTaskAsync()` Atualiza uma tarefa existente
-    public async Task<TaskModel?> UpdateTaskAsync(int id, TaskModel task)
+    public async Task<bool> UpdateTaskAsync(int id, TaskModel task)
     {
       var existingTask = await _context.Tasks.FindAsync(id);
       if (existingTask == null)
-        return null;
+        return false;
 
       existingTask.Name = task.Name;
       existingTask.Description = task.Description;
       existingTask.IsCompleted = task.IsCompleted;
 
       await _context.SaveChangesAsync();
-      return existingTask;
+      return true;
     }
 
     // `DeleteTaskAsync()` Exclui uma tarefa pelo ID

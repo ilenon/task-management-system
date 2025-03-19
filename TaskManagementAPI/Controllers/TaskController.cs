@@ -9,10 +9,10 @@ namespace TaskManagementAPI.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly TaskService _taskService;
+        private readonly ITaskService _taskService;
 
         // Construtor recebe a camada de serviço injetada
-        public TaskController(TaskService taskService)
+        public TaskController(ITaskService taskService)
         {
             _taskService = taskService;
         }
@@ -47,7 +47,7 @@ namespace TaskManagementAPI.Controllers
             if (id != task.Id) return BadRequest();
 
             var updatedTask = await _taskService.UpdateTaskAsync(id, task);
-            return updatedTask != null ? NoContent() : NotFound();
+            return updatedTask != false ? NoContent() : NotFound();
         }
 
         // DELETE: api/tasks/5 - Endpoint para excluir uma tarefa pelo ID

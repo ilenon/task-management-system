@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ITaskRepository, TaskRepository>(); // Registra o repositório
-builder.Services.AddScoped<TaskService>(); // Registra o serviço
+builder.Services.AddScoped<ITaskService, TaskService>(); // Registra o serviço
 
 
 // Add services to the container.

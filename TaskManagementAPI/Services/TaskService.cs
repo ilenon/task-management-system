@@ -9,7 +9,7 @@ using TaskManagementAPI.Repositories.Interfaces;
 namespace TaskManagementAPI.Services
 {
   // Camada de serviço para tarefas
-  public class TaskService
+  public class TaskService : ITaskService
   {
     private readonly ITaskRepository _taskRepository;
     
@@ -38,7 +38,7 @@ namespace TaskManagementAPI.Services
     }
 
     // Atualiza uma tarefa existente
-    public async Task<TaskModel?> UpdateTaskAsync(int id, TaskModel task)
+    public async Task<bool> UpdateTaskAsync(int id, TaskModel task)
     {
       return await _taskRepository.UpdateTaskAsync(id, task);
     }
