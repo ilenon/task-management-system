@@ -1,11 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagementAPI.Data;
+using TaskManagementAPI.Repositories;
+using TaskManagementAPI.Repositories.Interfaces;
+using TaskManagementAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiicona o context do banco de dados
+// // Adiicona o context do banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<ITaskRepository, TaskRepository>(); // Registra o repositório
+builder.Services.AddScoped<TaskService>(); // Registra o serviço
+
 
 // Add services to the container.
 builder.Services.AddControllers(); // Adiciona suporte para controllers

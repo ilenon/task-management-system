@@ -1,25 +1,60 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskManagementAPI.Models;
+using TaskManagementAPI.Services;
 
 namespace TaskManagementAPI.Controllers
 {
-  // Defina este controllador como um controllador de API
-  [ApiController]
-  // Defina a rota base da API como "api.tasks"
-  [Route("api/[controller]")]
-  public class TaskController : ControllerBase
-  {
-    // Método para obter todas as tarefas
-    [HttpGet]
-    public IActionResult GetAllTasks()
+    // Define que essa controller irá lidar com requisições para a rota "api/task"
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TaskController : ControllerBase
     {
-      // Retorna uma lista fictícia de tarefas
-      var tasks = new List<object>
-      {
-        new { Id = 1, Title = "Learn ASP.NET", Completed = false },
-        new { Id = 2, Title = "Build API", Completed = true }
-      };
+        private readonly TaskService _taskService;
 
-      return Ok(tasks); // Retorna um código HTTP 200 (OK) com dados
+        // Construtor recebe a camada de serviço injetada
+        public TaskController(TaskService taskService)
+        {
+            _taskService = taskService;
+        }
+
+        // GET: api/tasks - Endpoint para retornar todas as tarefas
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TaskModel>>> GetTasks()
+        {
+            return Ok(await _taskService.GetAllTasksAsync());
+        }
+
+        // GET: api/tasks/5 - Endpoint para retornar uma tarefa específica pelo ID
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TaskModel>> GetTask(int id)
+        {
+            var task = await _taskService.GetTaskByIdAsync(id);
+            return task == null ? NotFound() : Ok(task);
+        }
+
+        // POST: api/tasks - Endpoint para criar uma nova tarefa
+        [HttpPost]
+        public async Task<ActionResult<TaskModel>> PostTask(TaskModel task)
+        {
+            var createdTask = await _taskService.AddTaskAsync(task);
+            return CreatedAtAction(nameof(GetTask), new { id = createdTask.Id }, createdTask);
+        }
+
+        // PUT: api/tasks/5 - Endpoint para atualizar uma tarefa existente
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTask(int id, TaskModel task)
+        {
+            if (id != task.Id) return BadRequest();
+
+            var updatedTask = await _taskService.UpdateTaskAsync(id, task);
+            return updatedTask != null ? NoContent() : NotFound();
+        }
+
+        // DELETE: api/tasks/5 - Endpoint para excluir uma tarefa pelo ID
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            return await _taskService.DeleteTaskAsync(id) ? NoContent() : NotFound();
+        }
     }
-  }
 }
