@@ -10,6 +10,9 @@ namespace TaskManagementAPI.Data
         // `base(options)` → Passa as opções de conexão para a classe base.
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        // Representa a tabela "Users" no banco de dados
+        public DbSet<UserModel> Users { get; set; }
+
         // Representa a tabela "Tasks" no banco de dados
         public DbSet<TaskModel> Tasks { get; set; }
     }

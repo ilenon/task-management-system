@@ -1,5 +1,5 @@
 using TaskManagementAPI.Models;
-using TaskManagementAPI.Repositories.Interfaces;
+using TaskManagementAPI.Repositories;
 
 /**
  * - Criamos a camada de serviço (TaskService).

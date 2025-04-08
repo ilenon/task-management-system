@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using TaskManagementAPI.Data;
 using TaskManagementAPI.Repositories;
-using TaskManagementAPI.Repositories.Interfaces;
 using TaskManagementAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);

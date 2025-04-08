@@ -5,7 +5,7 @@ using TaskManagementAPI.Models;
  * O `?` em `TaskModel?` indica que esse método pode retornar `null`.
  **/
 
-namespace TaskManagementAPI.Repositories.Interfaces
+namespace TaskManagementAPI.Repositories
 {
   // Interface que define os métodos do repositório de tarefas
   public interface ITaskRepository

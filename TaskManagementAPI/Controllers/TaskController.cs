@@ -19,14 +19,15 @@ namespace TaskManagementAPI.Controllers
 
         // GET: api/tasks - Endpoint para retornar todas as tarefas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TaskModel>>> GetTasks()
+        public async Task<IActionResult> GetTasks()
         {
-            return Ok(await _taskService.GetAllTasksAsync());
+            var tasks = await _taskService.GetAllTasksAsync();
+            return Ok(tasks);
         }
 
         // GET: api/tasks/5 - Endpoint para retornar uma tarefa específica pelo ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskModel>> GetTask(int id)
+        public async Task<IActionResult> GetTaskById(int id)
         {
             var task = await _taskService.GetTaskByIdAsync(id);
             return task == null ? NotFound() : Ok(task);
@@ -34,10 +35,10 @@ namespace TaskManagementAPI.Controllers
 
         // POST: api/tasks - Endpoint para criar uma nova tarefa
         [HttpPost]
-        public async Task<ActionResult<TaskModel>> PostTask(TaskModel task)
+        public async Task<IActionResult> PostTask(TaskModel task)
         {
             var createdTask = await _taskService.AddTaskAsync(task);
-            return CreatedAtAction(nameof(GetTask), new { id = createdTask.Id }, createdTask);
+            return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id }, createdTask);
         }
 
         // PUT: api/tasks/5 - Endpoint para atualizar uma tarefa existente
