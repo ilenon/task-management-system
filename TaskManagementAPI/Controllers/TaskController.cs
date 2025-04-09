@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagementAPI.Models;
 using TaskManagementAPI.Services;
@@ -5,6 +6,7 @@ using TaskManagementAPI.Services;
 namespace TaskManagementAPI.Controllers
 {
     // Define que essa controller irá lidar com requisições para a rota "api/task"
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
