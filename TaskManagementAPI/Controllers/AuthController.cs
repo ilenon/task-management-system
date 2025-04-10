@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagementAPI.Models;
 using TaskManagementAPI.Services;
@@ -15,6 +16,7 @@ public class AuthController : ControllerBase
     _authService = authService;
   }
 
+  [AllowAnonymous] // This endpoint should be accessible without authentication
   [HttpPost("register")]
   public async Task<IActionResult> Register([FromBody] UserModel request)
   {
@@ -26,6 +28,7 @@ public class AuthController : ControllerBase
     return Ok("User registered successfully");
   }
 
+  [AllowAnonymous] // This endpoint should be accessible without authentication
   [HttpPost("login")]
   public async Task<IActionResult> Login([FromBody] UserModel request)
   {

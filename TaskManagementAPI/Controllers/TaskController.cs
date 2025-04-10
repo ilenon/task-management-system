@@ -6,9 +6,9 @@ using TaskManagementAPI.Services;
 namespace TaskManagementAPI.Controllers
 {
     // Define que essa controller irá lidar com requisições para a rota "api/task"
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // <- Protege todos os endpoints da controller
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
